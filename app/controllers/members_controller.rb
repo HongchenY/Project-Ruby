@@ -6,7 +6,11 @@ class MembersController < ApplicationController
 
   # GET /members or /members.json
   def index
-    @members = Member.all
+    if current_user
+      @members = current_user.team ? current_user.team.members : []
+    else
+      redirect_to new_user_registration_path, notice:"Register First"
+    end
   end
 
   # GET /members/1 or /members/1.json
@@ -15,7 +19,11 @@ class MembersController < ApplicationController
 
   # GET /members/new
   def new
-    @member = current_user.members.build
+    if current_user.team
+      @member = current_user.team.members.build
+    else
+      redirect_to new_team_path, notice:"You must be part of a team"
+    end
   end
 
   # GET /members/1/edit
@@ -24,16 +32,20 @@ class MembersController < ApplicationController
 
   # POST /members or /members.json
   def create
-    @member = current_user.members.build(member_params)
+    if current_user.team
+      @member = current_user.team.members.build(member_params)
 
-    respond_to do |format|
-      if @member.save
-        format.html { redirect_to member_url(@member), notice: "Member was successfully created." }
-        format.json { render :show, status: :created, location: @member }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @member.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @member.save
+          format.html { redirect_to member_url(@member), notice: "Member was successfully created." }
+          format.json { render :show, status: :created, location: @member }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @member.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to new_team_path, notice: "You must be part of a team to create members."
     end
   end
 
@@ -61,8 +73,8 @@ class MembersController < ApplicationController
   end
 
   def correct_user
-      @member = current_user.members.find_by(id: params[:id])
-      redirect_to members_path, notice: "Not Authorized to Edit This Member" if @member.nil?
+    @member = current_user.team.members.find_by(id: params[:id])
+    redirect_to members_path, notice: "Not Authorized to Edit This Member" if @member.nil?
   end
 
   private
@@ -73,6 +85,6 @@ class MembersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:first_name, :last_name, :email, :phone, :twitter, :user_id)
+      params.require(:member).permit(:first_name, :last_name, :email, :phone, :twitter, :team_id)
     end
 end
