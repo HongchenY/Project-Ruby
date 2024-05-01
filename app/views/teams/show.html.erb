@@ -1,0 +1,9 @@
+<div class="jumbotron">
+  <h1 class="display-4">Hello <%= @team.teamName%> </h1>
+  <p><%= @team.teamName%> | <%= @team.code%></p>
+  <hr class="my-4">
+  <%= link_to "Edit this team", edit_team_path(@team), class:"btn btn-secondary" %> |
+  <br></br>
+  <%= button_to "Destroy this team", @team, method: :delete %>
+
+</div>
