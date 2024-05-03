@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :correct_team, only: [:edit, :update, :destroy]
 
   # GET /teams or /teams.json
   def index
