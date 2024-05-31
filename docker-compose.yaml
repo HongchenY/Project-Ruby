@@ -1,7 +1,7 @@
 version: '3.9'
-name: teamlist
+name: memberlist
 services:
-  teamlist:
+  memberlist:
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,6 +10,7 @@ services:
     ports:
       - mode: ingress
         target: 3000
+        published: 3000
     deploy:
       resources:
         reservations:

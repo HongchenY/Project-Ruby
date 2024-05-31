@@ -1,0 +1,13 @@
+<h1>Editing restaurant</h1>
+
+<%= render "form", restaurant: @restaurant %>
+
+<br>
+
+<br>
+
+<div>
+  <%= link_to "Show this restaurant", @restaurant, class:"btn btn-secondary" %> |
+  <%= link_to "Back to restaurants", restaurants_path, class:"btn btn-secondary" %>
+   <%= link_to "Destroy this restaurant", @restaurant, data: {turbo_method: :delete}, class:"btn btn-danger" %>
+</div>

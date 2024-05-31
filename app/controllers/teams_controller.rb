@@ -32,15 +32,26 @@ class TeamsController < ApplicationController
     end
 
     @team = Team.new(team_params)
-    @team.user = current_user
 
-    respond_to do |format|
-      if @team.save
-        format.html { redirect_to team_url(@team), notice: "Team was successfully created." }
-        format.json { render :show, status: :created, location: @team }
+
+    if params[:create]
+      current_user.team=@team
+      if current_user.save
+        redirect_to team_path(@team), notice:"Team created successfully."
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
+        render :new
+      end
+    elsif params[:join]
+      existing_team = Team.find_by(teamName: params[:teamName], code: params[:code])
+      if existing_team
+        current_user.team = existing_team
+        if current_user.save
+          redirect_to team_path(existing_team), notice:"Succesfully joined team" + @team.teamName
+        else
+          render :new
+        end
+      else
+        redirect_to new_team_path, notice:"The team does not exist"
       end
     end
   end

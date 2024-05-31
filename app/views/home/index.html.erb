@@ -1,2 +1,27 @@
-<h1> Home Page </h1>
+<h1>Welcome to Lunch Selector</h1>
 
+<button id="pickRestaurantButton">Pick a Restaurant</button>
+<p id="pickedRestaurant"></p>
+
+<script>
+        document.getElementById('pickRestaurantButton').addEventListener('click', function() {
+        fetch('/home/pick_restaurant', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        })
+        .then(response => response.json())
+        .then(data => {
+        document.getElementById('pickedRestaurant').textContent = `Picked Restaurant: ${data.title}`;
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
+    });
+    </script>
+<% if current_user == nil %>
+    <p>To access full content,please sign in first</p>
+    <%= link_to "Sign-in", new_user_session_path, class:"btn, btn-secondary"%>
+<% end %>

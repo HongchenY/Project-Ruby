@@ -7,7 +7,9 @@ class MembersController < ApplicationController
   # GET /members or /members.json
   def index
     if current_user
-      @members = current_user.team ? current_user.team.members : []
+      if current_user.team
+        @members = current_user.team.members
+      end
     else
       redirect_to new_user_registration_path, notice:"Register First"
     end
@@ -20,7 +22,7 @@ class MembersController < ApplicationController
   # GET /members/new
   def new
     if current_user.team
-      @member = current_user.team.members.build
+      @member = current_user.team.members.new
     else
       redirect_to new_team_path, notice:"You must be part of a team"
     end
@@ -80,11 +82,11 @@ class MembersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_member
-      @member = Member.find(params[:id])
+      @member = current_user.team.members.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def member_params
-      params.require(:member).permit(:first_name, :last_name, :email, :phone, :twitter, :team_id)
+      params.require(:member).permit(:first_name, :last_name, :spicy, :healthy, :team_id)
     end
 end

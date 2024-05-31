@@ -1,9 +1,13 @@
 <div class="jumbotron">
-  <h1 class="display-4">Hello <%= @team.teamName%> </h1>
-  <p><%= @team.teamName%> | <%= @team.code%></p>
+  <h1 class="display-4">Hello Team <%= @team.teamName%> </h1>
+  <p>Team Name: <%= @team.teamName%> | Team Code: <%= @team.code%></p>
+  <p> 
+    Members: 
+      <% @team.members.each do |team_member| %> 
+        <%= team_member.first_name + " " + team_member.last_name %>
+      <% end %>
+  </p>
   <hr class="my-4">
-  <%= link_to "Edit this team", edit_team_path(@team), class:"btn btn-secondary" %> |
-  <br></br>
-  <%= button_to "Destroy this team", @team, method: :delete %>
+  <%= link_to "Edit this team", edit_team_path(@team), class:"btn btn-secondary" %> | <%= link_to "Destroy this team", @team, data: {turbo_method: :delete}, class:"btn btn-danger" %>
 
 </div>

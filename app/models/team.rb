@@ -1,4 +1,5 @@
 class Team < ApplicationRecord
-    belongs_to :user
     has_many :members
+    has_many :users
+    # the has_many relationship has to come before the has_many through relationship
 end
