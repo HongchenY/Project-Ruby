@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<% if current_user %>
-  <% if current_user.team %>
-    <%= link_to current_user.team.teamName, teams_path, class:"navbar-brand" %>
-  <% else %>
-    <%= link_to 'Your Team Name', new_team_path, class:"navbar-brand" %>
+  <% if current_user %>
+    <% if current_user.team %>
+      <%= link_to current_user.team.teamName, root_path, class:"navbar-brand" %>
+    <% else %>
+      <%= link_to 'Your Team Name', new_team_path, class:"navbar-brand" %>
+    <% end %>
   <% end %>
-<% end %>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,25 +15,29 @@
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item mr-2">
-        <%= link_to 'About Us', home_about_path, class:"nav-link" %>
+        <%= link_to 'About', home_about_path, class:"nav-link" %>
       </li>
 
     <% if user_signed_in? %>
 
         <li class="nav-item mr-2">
-        <%= link_to 'Add Member', new_member_path, class:"nav-link" %>
+         <%= link_to 'Members', members_path, class:"nav-link" %>
         </li>
 
-     <li class="nav-item mr-2">
-        <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>
-     </li>
+        <li class="nav-item mr-2">
+          <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>
+        </li>
 
       <li class="nav-item mr-2">
-       <% if current_user.team.present? %>
+       <% if current_user.team %>
         <%= link_to 'Team', team_path(current_user.team), class: "nav-link" %>
        <% else %>
         <%= link_to 'Create Team', new_team_path, class: "nav-link" %> <!-- Assuming you want to offer a way to create a team -->
        <% end %>
+      </li>
+
+      <li class="nav-item mr-2">
+        <%= link_to 'Restaurants', restaurants_path, class:"nav-link" %>
       </li>
    
 

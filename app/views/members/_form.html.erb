@@ -20,20 +20,17 @@
     <%= form.label :last_name, style: "display: block" %>
     <%= form.text_field :last_name, class:"form-control", placeholder:"Kai" %>
   </div>
-
-  <div class="field form-group">
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email, class:"form-control", placeholder:"abc@gmail.com" %>
+      
+  <div class="field form-group slider-container">
+    <%= form.label :spicy, "Acceptance to Spicy Food", class: "form-label" %>
+    <%= form.range_field :spicy, min: 0, max: 5, step: 0.5, value: member.spicy || 2.5, id: "customRange3", class:"form-range"%>
+    <span class="slider-value"><%= member.spicy %></span>
   </div>
 
-  <div class="field form-group">
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone, class:"form-control", placeholder:"562413" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :twitter, style: "display: block" %>
-    <%= form.text_field :twitter, class:"form-control", placeholder:"@AKAKKAKAK" %>
+  <div class="field form-group slider-container">
+    <%= form.label :spicy, "How healthy do you want", class: "form-label" %>
+    <%= form.range_field :healthy, min: 0, max: 5, step: 0.5, value: member.healthy || 2.5, id: "customRange3", class:"form-range"%>
+    <span class="slider-value"><%= member.healthy %></span>
   </div>
 
   <div class="action">

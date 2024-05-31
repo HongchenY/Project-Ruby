@@ -1,0 +1,38 @@
+<%= form_with(model: restaurant) do |form| %>
+  <% if restaurant.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
+
+      <ul>
+        <% restaurant.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title, class:"form-control", placeholder:"Chicko Chicken" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :rate, style: "display: block" %>
+    <%= form.text_field :rate, class:"form-control", placeholder:"4.1" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :style, style: "display: block" %>
+    <%= form.text_field :style, class:"form-control", placeholder:"Korean" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description, class:"form-control", placeholder:"A Korean Chicken Restaurant" %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit", class:"btn btn-secondary"%>
+  </div>
+
+<% end %>

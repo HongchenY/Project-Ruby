@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Restaurants</h1>
+
+<div id="restaurants" class="container">
+  <div class="row">
+    <% @restaurants.each do |restaurant| %>
+      <div class="col-md-4 mb-4">
+       <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.title %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">Rate: <%= restaurant.rate %>, Style: <%= restaurant.style %></h6>
+            <p class="card-text"><%= restaurant.description %></p>
+            <%= link_to "Edit this restaurant", edit_restaurant_path(restaurant), class:"btn"%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>
+
+<%= link_to "Add Restaurants", new_restaurant_path, class:"btn btn-secondary" %>
+
+

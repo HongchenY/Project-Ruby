@@ -2,23 +2,23 @@
   <thread class="thread-dark">
     <tr>
       <th>Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Twitter</th>
+      <th>Spicy</th>
+      <th>Healthy</th>
     </tr>
   </thread>
 
-  <tbody>
-    <% @members.each do |member| %>
-      <tr>
-        <td><%= link_to member.first_name + ' ' + member.last_name, member %></td>
-        <td><%= member.email %></td>
-        <td><%= member.phone %></td>
-        <td><%= member.twitter %></td>
-        <td><%= link_to 'Delete', member_path(member), data: { turbo_method: :delete, turbo_confirm: 'Are you sure' } , class: "btn btn-outline-danger btn-sm" %></td>
-       # has to have a td to let this row be in the table, otherwise it will appear at the top
 
-      </tr>
+  <tbody>
+    <% if @members != nil %>
+      <% @members.each do |member| %>
+        <tr>
+          <td><%= link_to member.first_name + ' ' + member.last_name, member %></td>
+          <td><%= member.spicy %></td>
+          <td><%= member.healthy %></td>
+          <td><%= link_to 'Delete', member_path(member), data: { turbo_method: :delete, turbo_confirm: 'Are you sure' } , class: "btn btn-outline-danger btn-sm" %></td>
+
+        </tr>
+     <% end %>
 
     <% end %>
 

@@ -10,17 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_27_002115) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_212207) do
   create_table "members", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "email"
-    t.string "phone"
-    t.string "twitter"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "team_id"
+    t.float "spicy"
+    t.float "healthy"
     t.index ["team_id"], name: "index_members_on_team_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "title"
+    t.float "rate"
+    t.string "style"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -28,8 +36,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_002115) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,8 +46,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_002115) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "team_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "users", "teams"
 end

@@ -21,9 +21,9 @@
     <%= form.text_field :code, class:"form-control", placeholder:"Splender" %>
   </div>
 
-
   <div>
-    <%= form.submit %>
-  </div>
+    <%= form.submit "Create a Team", name:"create"%>
+    <%= form.submit "Join a Team", name:"join"%>
+</div>
 
 <% end %>
